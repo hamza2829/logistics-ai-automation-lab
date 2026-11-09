@@ -9,6 +9,76 @@ permissions:
   contents: read
 
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python -m pip install '.[dev]'
+      - run: ruff check --output-format github
+      - run: bash -n scripts/n8n-smoke.sh
+
+  tests:
+    name: Tests and synthetic demo
+    runs-on: ubuntu-24.04
+    env:
+      MPLBACKEND: Agg
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python -m pip install '.[dev]'
+      - name: Run tests
+        run: |
+          mkdir -p artifacts/demo
+          pytest -q --cov=logistics_lab --cov-report=term-missing \
+            --cov-report=json:artifacts/demo/coverage.json \
+            --junitxml=artifacts/demo/pytest-results.xml
+      - name: Generate logs and reports
+        run: |
+          logistics-lab generate --count 3000 --seed 2829 --output artifacts/demo/events.csv
+          logistics-lab analyze --events artifacts/demo/events.csv --out artifacts/demo/process
+          logistics-lab rank --output artifacts/demo/use-cases.md
+          logistics-lab make-benchmark --seed 2829 --output artifacts/demo/triage-benchmark.csv
+          logistics-lab evaluate --cases artifacts/demo/triage-benchmark.csv --out artifacts/demo
+      - name: Record measured results
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          from xml.etree import ElementTree
+
+          demo = Path("artifacts/demo")
+          suites = ElementTree.parse(demo / "pytest-results.xml").getroot()
+          tests = sum(int(suite.get("tests")) for suite in suites.findall("testsuite"))
+          coverage = json.loads((demo / "coverage.json").read_text())["totals"]
+          triage = json.loads((demo / "triage-evaluation.json").read_text())
+          process = json.loads((demo / "process/summary.json").read_text())
+          assert tests >= 40
+          assert triage["total"] >= 60
+          assert process["requests"] == process["completed"] == 3000
+          passed = f'{tests} tests passed. Line coverage {coverage["percent_covered"]:.2f}%.'
+          accuracy = (
+              f'Mock accuracy {triage["accuracy_pct"]:.2f}% ({triage["correct"]}/{triage["total"]}). '
+              f'{len(triage["failures"])} errors, {triage["unflagged_errors"]} unflagged. '
+              f'{triage["flagged"]} requests flagged for review.'
+          )
+          print(passed)
+          print(accuracy)
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as stream:
+              stream.write(f"### Measured results\n\n{passed}\n\n{accuracy}\n")
+          PY
+      - uses: actions/upload-artifact@v6
+        with:
+          name: logistics-demo
+          path: artifacts/demo/
+          if-no-files-found: error
+
   n8n:
     name: n8n webhook and approval
     runs-on: ubuntu-24.04
