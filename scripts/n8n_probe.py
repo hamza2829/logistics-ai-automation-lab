@@ -41,9 +41,10 @@ def review(decision: str) -> None:
     parsed = urlsplit(url)
     assert parsed.scheme == "http" and parsed.netloc == "127.0.0.1:5678"
     assert parsed.path.startswith("/webhook-waiting/")
+    # Intake returns before n8n has finished persisting its waiting state.
     for _ in range(20):
         status, result = post(url, {"decision": decision})
-        if status != 404:
+        if status not in (404, 409):
             break
         sleep(0.25)
     record(f"{decision} callback", status, result)
