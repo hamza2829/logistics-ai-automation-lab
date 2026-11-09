@@ -1,0 +1,355 @@
+{
+  "name": "Logistics triage with human approval",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "logistics-triage",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        200
+      ],
+      "id": "67a9e840-45b0-48bf-a67c-000000000001",
+      "name": "Intake webhook",
+      "webhookId": "67a9e840-45b0-48bf-a67c-000000000101"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "67a9e840-45b0-48bf-a67c-000000000201",
+              "leftValue": "={{ Boolean($json.body && Object.keys($json.body).length === 2 && typeof $json.body.request_id === 'string' && /^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$/.test($json.body.request_id.trim()) && typeof $json.body.text === 'string' && Array.from($json.body.text.trim()).length >= 1 && Array.from($json.body.text.trim()).length <= 500) }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        220,
+        200
+      ],
+      "id": "67a9e840-45b0-48bf-a67c-000000000002",
+      "name": "Validate intake"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { error: 'Expected request_id and text strings with valid lengths' } }}",
+        "options": {
+          "responseCode": 422
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        460,
+        420
+      ],
+      "id": "67a9e840-45b0-48bf-a67c-000000000003",
+      "name": "Reject invalid intake"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8000/triage",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { request_id: $json.body.request_id, text: $json.body.text } }}",
+        "options": {
+          "timeout": 5000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        460,
+        120
+      ],
+      "id": "67a9e840-45b0-48bf-a67c-000000000004",
+      "name": "Call triage API"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "67a9e840-45b0-48bf-a67c-000000000204",
+              "leftValue": "={{ $json.needs_review }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        690,
+        120
+      ],
+      "id": "67a9e840-45b0-48bf-a67c-000000000005",
+      "name": "Needs review"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ...$json, route: 'automatic' } }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        920,
+        360
+      ],
+      "id": "67a9e840-45b0-48bf-a67c-000000000006",
+      "name": "Return automatic routing"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ...$json, route: 'pending_review', review_url: $execution.resumeUrl } }}",
+        "options": {
+          "responseCode": 202
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        920,
+        20
+      ],
+      "id": "67a9e840-45b0-48bf-a67c-000000000007",
+      "name": "Return pending review"
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "incomingAuthentication": "none",
+        "httpMethod": "POST",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1150,
+        20
+      ],
+      "id": "67a9e840-45b0-48bf-a67c-000000000008",
+      "name": "Wait for human decision",
+      "webhookId": "67a9e840-45b0-48bf-a67c-000000000108"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "67a9e840-45b0-48bf-a67c-000000000208",
+              "leftValue": "={{ $json.body?.decision === 'approve' || $json.body?.decision === 'reject' }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1380,
+        20
+      ],
+      "id": "67a9e840-45b0-48bf-a67c-000000000009",
+      "name": "Validate review decision"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { request_id: $('Call triage API').first().json.request_id, category: $('Call triage API').first().json.category, route: $json.body.decision === 'approve' ? 'approved' : 'rejected' } }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1620,
+        -120
+      ],
+      "id": "67a9e840-45b0-48bf-a67c-000000000010",
+      "name": "Return review outcome"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { error: 'Expected approve or reject', route: 'invalid_decision' } }}",
+        "options": {
+          "responseCode": 422
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1620,
+        180
+      ],
+      "id": "67a9e840-45b0-48bf-a67c-000000000011",
+      "name": "Reject invalid decision"
+    }
+  ],
+  "connections": {
+    "Intake webhook": {
+      "main": [
+        [
+          {
+            "node": "Validate intake",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate intake": {
+      "main": [
+        [
+          {
+            "node": "Call triage API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reject invalid intake",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call triage API": {
+      "main": [
+        [
+          {
+            "node": "Needs review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Needs review": {
+      "main": [
+        [
+          {
+            "node": "Return pending review",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Return automatic routing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Return pending review": {
+      "main": [
+        [
+          {
+            "node": "Wait for human decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for human decision": {
+      "main": [
+        [
+          {
+            "node": "Validate review decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate review decision": {
+      "main": [
+        [
+          {
+            "node": "Return review outcome",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reject invalid decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "67a9e840-45b0-48bf-a67c-000000000999",
+  "id": "logisticsTriage1",
+  "tags": [],
+  "pinData": {}
+}
