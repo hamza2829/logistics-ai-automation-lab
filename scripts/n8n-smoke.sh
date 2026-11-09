@@ -3,7 +3,7 @@ set -euo pipefail
 
 if [[ ${1:-} != "--inside-npx" ]]; then
   export npm_config_fund=false npm_config_audit=false
-  exec npx --yes --package=n8n@2.46.5 -- bash "$0" --inside-npx "${1:-artifacts/n8n}"
+  exec npx --yes --package=n8n@2.46.6 -- bash "$0" --inside-npx "${1:-artifacts/n8n}"
 fi
 
 out=$2
