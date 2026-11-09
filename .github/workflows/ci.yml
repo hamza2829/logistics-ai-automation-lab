@@ -44,7 +44,11 @@ jobs:
           logistics-lab analyze --events artifacts/demo/events.csv --out artifacts/demo/process
           logistics-lab rank --output artifacts/demo/use-cases.md
           logistics-lab make-benchmark --seed 2829 --output artifacts/demo/triage-benchmark.csv
-          logistics-lab evaluate --cases artifacts/demo/triage-benchmark.csv --out artifacts/demo
+          cmp fixtures/triage-benchmark.csv artifacts/demo/triage-benchmark.csv
+          logistics-lab evaluate --cases fixtures/triage-benchmark.csv --out artifacts/demo
+          cmp docs/triage-evaluation.md artifacts/demo/triage-evaluation.md
+          cmp docs/use-cases.md artifacts/demo/use-cases.md
+          cmp docs/process-report.md artifacts/demo/process/process-report.md
       - name: Record measured results
         run: |
           python - <<'PY'
