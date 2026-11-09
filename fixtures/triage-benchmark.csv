@@ -1,0 +1,81 @@
+request_id,text,expected
+SYN-T001,Alder site: Confirm the driver shift and reserve a driver for a later run.,driver_booking
+SYN-T002,Maple site: Update the warehouse order after the dispatch load plan changes.,warehouse_order
+SYN-T003,Birch site: Split the stock transfer and update the SKU quantities.,warehouse_order
+SYN-T004,Alder site: The warehouse order needs a revised pick list.,warehouse_order
+SYN-T005,Birch site: Allocate a licensed colleague to cover the next run.,driver_booking
+SYN-T006,Alder site: Ask the mailroom to investigate a damaged delivery.,mail_parcel
+SYN-T007,Maple site: Correct the dispatch cutoff in the daily notice.,dispatch
+SYN-T008,Birch site: Find a substitute driver for the west site.,driver_booking
+SYN-T009,Maple site: Book a driver and confirm driver availability for Monday.,driver_booking
+SYN-T010,Maple site: Could someone update the meeting room display?,other
+SYN-T011,Birch site: Change the driver booking from morning to afternoon.,driver_booking
+SYN-T012,Alder site: Validate the SKU and bin location before releasing the tote.,warehouse_order
+SYN-T013,Cedar site: The annual dispatch team survey link is broken.,other
+SYN-T014,Alder site: Generate a pick list for the tote at station two.,warehouse_order
+SYN-T015,Birch site: Confirm vehicle allocation with the yard.,dispatch
+SYN-T016,Alder site: Release the dispatch paperwork for the loading area.,dispatch
+SYN-T017,Alder site: Update the bin location for the replacement parts.,warehouse_order
+SYN-T018,Alder site: The outbound route needs a revised stop order.,dispatch
+SYN-T019,"Alder site: A warehouse order appears in the slide deck, but I only need spelling checked.",other
+SYN-T020,Birch site: Move six cartons from the upper rack to the lower staging area.,warehouse_order
+SYN-T021,Maple site: Where can I find the office holiday calendar?,other
+SYN-T022,Birch site: Move a parcel to the internal collection point.,mail_parcel
+SYN-T023,Birch site: I need help with the screen in the briefing room.,other
+SYN-T024,"Cedar site: The load plan is confirmed, but check driver availability.",driver_booking
+SYN-T025,Alder site: The route sheet is ready; we need a person who can drive the van.,driver_booking
+SYN-T026,Birch site: Confirm the stock transfer from the reserve area.,warehouse_order
+SYN-T027,Maple site: Reassign the outbound route after a road closure.,dispatch
+SYN-T028,Cedar site: Start replenishment for the near-empty rack.,warehouse_order
+SYN-T029,Cedar site: Can you explain which office handles this?,other
+SYN-T030,Maple site: Confirm driver availability for Friday morning.,driver_booking
+SYN-T031,Cedar site: The mailroom needs a replacement tray for incoming letters.,mail_parcel
+SYN-T032,Maple site: The account code on my expense claim is blank.,other
+SYN-T033,Maple site: The coffee machine in the break room needs attention.,other
+SYN-T034,Cedar site: Print the postage label for the outgoing sample.,mail_parcel
+SYN-T035,Cedar site: Submit a driver booking for the early slot.,driver_booking
+SYN-T036,Birch site: The driver booking icon on the intranet is blurry.,other
+SYN-T037,Cedar site: The inventory rack needs four more boxes before the next shift.,warehouse_order
+SYN-T038,Maple site: Change the dispatch load plan for the courier envelope run.,dispatch
+SYN-T039,Maple site: Can you review the wording in the staff announcement?,other
+SYN-T040,Birch site: Change the driver booking for the outbound route.,driver_booking
+SYN-T041,Alder site: A courier envelope is waiting at the west counter.,mail_parcel
+SYN-T042,Alder site: Please book a driver for the second collection.,driver_booking
+SYN-T043,Birch site: Is anyone available to take the wheel on the late shift?,driver_booking
+SYN-T044,Alder site: Change the order in which the vans visit our sites.,dispatch
+SYN-T045,Birch site: Forward a courier envelope to the desk listed on the outbound route.,mail_parcel
+SYN-T046,Maple site: Check the SKU quantity against the item record.,warehouse_order
+SYN-T047,Maple site: We need a substitute driver after a sick call.,driver_booking
+SYN-T048,Cedar site: I want to change the email footer used by the mailroom.,other
+SYN-T049,Maple site: The warehouse order is already staged; decide which van will collect it.,dispatch
+SYN-T050,Birch site: The picking task needs a new shelf assignment.,warehouse_order
+SYN-T051,Cedar site: Confirm postage for the returns envelope.,mail_parcel
+SYN-T052,Alder site: Please send the agenda for the quarterly team meeting.,other
+SYN-T053,Alder site: The outbound route uses the same slot; update the bin location first.,warehouse_order
+SYN-T054,Birch site: Who approves parking permits at this building?,other
+SYN-T055,Cedar site: Where should we drop stamped letters for the afternoon collection?,mail_parcel
+SYN-T056,"Alder site: The route sheet is printed, but the actual request is to find a missing envelope.",mail_parcel
+SYN-T057,Alder site: The outgoing mail tray has not been emptied.,mail_parcel
+SYN-T058,Birch site: The driver booking is complete; update the outbound route for the new stop.,dispatch
+SYN-T059,Cedar site: Release the warehouse order for packing.,warehouse_order
+SYN-T060,Maple site: Check which shelf holds the parcel for the finance team.,mail_parcel
+SYN-T061,Birch site: Update vehicle allocation for the morning departure.,dispatch
+SYN-T062,Maple site: Search the mailroom for the parcel logged this morning.,mail_parcel
+SYN-T063,Alder site: Please check the item from yesterday.,other
+SYN-T064,Cedar site: Prepare the dispatch schedule for the afternoon.,dispatch
+SYN-T065,Maple site: Reserve a driver for the evening run.,driver_booking
+SYN-T066,Maple site: Set up the route sheet and the dispatch time for the next collection.,dispatch
+SYN-T067,Cedar site: Someone left a parcel and a route sheet in the meeting room.,other
+SYN-T068,Maple site: Move collection point four to a different route sheet.,dispatch
+SYN-T069,Maple site: Can you reset access to my training portal?,other
+SYN-T070,Alder site: Trace a parcel that never arrived at the service desk.,mail_parcel
+SYN-T071,Alder site: Extend the driver shift through the afternoon pickup.,driver_booking
+SYN-T072,"Maple site: A parcel label was attached, but the request is to move stock between racks.",warehouse_order
+SYN-T073,Maple site: Hold the picking task until inventory is counted.,warehouse_order
+SYN-T074,Birch site: A padded packet for the training office is missing from reception.,mail_parcel
+SYN-T075,Cedar site: Collect the mail bag from reception before closing.,mail_parcel
+SYN-T076,Cedar site: Which van should take the returns to the consolidation point?,dispatch
+SYN-T077,Alder site: Cancel the driver booking for the old schedule.,driver_booking
+SYN-T078,Maple site: Send the load plan to the staging coordinator.,dispatch
+SYN-T079,Cedar site: The mail bag is at the dispatch desk; could you collect it?,mail_parcel
+SYN-T080,Maple site: Produce a route sheet and a load plan for tomorrow.,dispatch
