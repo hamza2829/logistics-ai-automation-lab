@@ -1,0 +1,65 @@
+# Hypothetical scores from 1 (low) to 5 (high). All evidence and workflows are synthetic.
+use_cases:
+  - id: intake-triage
+    title: Classify incoming service requests
+    area: Shared intake
+    impact: 5
+    effort: 1
+    risk: 2
+    hypothesis: A suggested route could reduce first-pass sorting work for the service desk.
+    measure: Exact category accuracy, unflagged errors, and review workload.
+    boundary: Confirm ambiguous requests with a human before assigning them.
+  - id: intake-completeness
+    title: Identify missing booking details
+    area: Driver bookings
+    impact: 4
+    effort: 2
+    risk: 1
+    hypothesis: Highlighting missing fields could reduce requests returned for clarification.
+    measure: Missing-field recall and unnecessary clarification requests.
+    boundary: A clerk confirms the checklist and contacts the requester.
+  - id: handover-draft
+    title: Draft a shift handover summary
+    area: Dispatch
+    impact: 3
+    effort: 2
+    risk: 1
+    hypothesis: Drafting a summary could reduce repeated reading at shift change.
+    measure: Omitted exceptions and time to review the draft.
+    boundary: Use only the supplied event records and require human sign-off.
+  - id: parcel-status-draft
+    title: Draft parcel status replies
+    area: Mail and parcel
+    impact: 4
+    effort: 2
+    risk: 3
+    hypothesis: A draft grounded in recorded events could reduce reply preparation time.
+    measure: Unsupported statements, correct status references, and review time.
+    boundary: The clerk verifies the source event and sends the reply.
+  - id: stock-exception-note
+    title: Summarize warehouse order exceptions
+    area: Warehouse orders
+    impact: 4
+    effort: 3
+    risk: 2
+    hypothesis: A grouped explanation could help reviewers identify recurring order returns.
+    measure: Missed exception causes and time to inspect a batch.
+    boundary: Keep order data read-only and preserve source IDs.
+  - id: driver-slot-assist
+    title: Suggest eligible driver slots
+    area: Driver bookings
+    impact: 5
+    effort: 4
+    risk: 5
+    hypothesis: Candidate slots could reduce repetitive lookup for planners.
+    measure: Invalid suggestions and time to confirm eligibility.
+    boundary: Enforce scheduling constraints separately and keep booking with a dispatcher.
+  - id: route-change-assist
+    title: Summarize alternatives for a route change
+    area: Dispatch
+    impact: 5
+    effort: 5
+    risk: 4
+    hypothesis: A comparison of proposed routes could help a dispatcher respond to a disruption.
+    measure: Missed constraints, suggested travel differences, and dispatcher overrides.
+    boundary: A dispatcher approves all route decisions and safety constraints.

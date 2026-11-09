@@ -1,0 +1,86 @@
+# All scenarios and sites are fictional. Keys are the manually specified target labels.
+mail_parcel:
+  - Trace a parcel that never arrived at the service desk.
+  - The mailroom needs a replacement tray for incoming letters.
+  - Confirm postage for the returns envelope.
+  - Collect the mail bag from reception before closing.
+  - A courier envelope is waiting at the west counter.
+  - Check which shelf holds the parcel for the finance team.
+  - Ask the mailroom to investigate a damaged delivery.
+  - Print the postage label for the outgoing sample.
+  - The outgoing mail tray has not been emptied.
+  - Move a parcel to the internal collection point.
+  - Where should we drop stamped letters for the afternoon collection?
+  - A padded packet for the training office is missing from reception.
+  - The route sheet is printed, but the actual request is to find a missing envelope.
+  - Forward a courier envelope to the desk listed on the outbound route.
+  - The mail bag is at the dispatch desk; could you collect it?
+  - Search the mailroom for the parcel logged this morning.
+dispatch:
+  - Prepare the dispatch schedule for the afternoon.
+  - Move collection point four to a different route sheet.
+  - Update vehicle allocation for the morning departure.
+  - The outbound route needs a revised stop order.
+  - Send the load plan to the staging coordinator.
+  - Release the dispatch paperwork for the loading area.
+  - Reassign the outbound route after a road closure.
+  - Produce a route sheet and a load plan for tomorrow.
+  - Correct the dispatch cutoff in the daily notice.
+  - Confirm vehicle allocation with the yard.
+  - Change the order in which the vans visit our sites.
+  - Which van should take the returns to the consolidation point?
+  - The warehouse order is already staged; decide which van will collect it.
+  - The driver booking is complete; update the outbound route for the new stop.
+  - Change the dispatch load plan for the courier envelope run.
+  - Set up the route sheet and the dispatch time for the next collection.
+driver_booking:
+  - Submit a driver booking for the early slot.
+  - Please book a driver for the second collection.
+  - Extend the driver shift through the afternoon pickup.
+  - Confirm driver availability for Friday morning.
+  - Find a substitute driver for the west site.
+  - Reserve a driver for the evening run.
+  - Cancel the driver booking for the old schedule.
+  - Confirm the driver shift and reserve a driver for a later run.
+  - Change the driver booking from morning to afternoon.
+  - We need a substitute driver after a sick call.
+  - Is anyone available to take the wheel on the late shift?
+  - Allocate a licensed colleague to cover the next run.
+  - The route sheet is ready; we need a person who can drive the van.
+  - Change the driver booking for the outbound route.
+  - The load plan is confirmed, but check driver availability.
+  - Book a driver and confirm driver availability for Monday.
+warehouse_order:
+  - Release the warehouse order for packing.
+  - Generate a pick list for the tote at station two.
+  - The picking task needs a new shelf assignment.
+  - Confirm the stock transfer from the reserve area.
+  - Check the SKU quantity against the item record.
+  - Start replenishment for the near-empty rack.
+  - Update the bin location for the replacement parts.
+  - The warehouse order needs a revised pick list.
+  - Validate the SKU and bin location before releasing the tote.
+  - Hold the picking task until inventory is counted.
+  - Move six cartons from the upper rack to the lower staging area.
+  - The inventory rack needs four more boxes before the next shift.
+  - A parcel label was attached, but the request is to move stock between racks.
+  - Update the warehouse order after the dispatch load plan changes.
+  - The outbound route uses the same slot; update the bin location first.
+  - Split the stock transfer and update the SKU quantities.
+other:
+  - Please check the item from yesterday.
+  - Where can I find the office holiday calendar?
+  - Could someone update the meeting room display?
+  - The account code on my expense claim is blank.
+  - The coffee machine in the break room needs attention.
+  - Please send the agenda for the quarterly team meeting.
+  - Can you reset access to my training portal?
+  - Who approves parking permits at this building?
+  - I need help with the screen in the briefing room.
+  - Can you review the wording in the staff announcement?
+  - I want to change the email footer used by the mailroom.
+  - The annual dispatch team survey link is broken.
+  - A warehouse order appears in the slide deck, but I only need spelling checked.
+  - Someone left a parcel and a route sheet in the meeting room.
+  - The driver booking icon on the intranet is blurry.
+  - Can you explain which office handles this?
