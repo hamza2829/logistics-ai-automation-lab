@@ -1,0 +1,12 @@
+n8n version 2.46.6
+Workflow logisticsTriage1
+GitHub run 42688510338, attempt 1, commit 767d41ea2321861fb67db199fe329bfdf2163ff0
+Successfully imported 1 workflow.
+Publishing workflow with ID: logisticsTriage1 (current version)
+invalid intake HTTP 422 {"error": "Expected request_id and text strings with valid lengths"}
+automatic intake HTTP 200 {"category": "mail_parcel", "confidence": 0.9, "engine": "mock", "needs_review": false, "request_id": "SYN-CI-AUTO", "route": "automatic"}
+approve intake HTTP 202 {"category": "other", "confidence": 0.2, "engine": "mock", "needs_review": true, "request_id": "SYN-CI-APPROVE", "route": "pending_review"}
+approve callback HTTP 200 {"category": "other", "request_id": "SYN-CI-APPROVE", "route": "approved"}
+reject intake HTTP 202 {"category": "other", "confidence": 0.2, "engine": "mock", "needs_review": true, "request_id": "SYN-CI-REJECT", "route": "pending_review"}
+reject callback HTTP 200 {"category": "other", "request_id": "SYN-CI-REJECT", "route": "rejected"}
+PASS: validation, offline triage, approval and rejection completed.

@@ -47,7 +47,7 @@ The n8n smoke command imports and publishes [the workflow](workflow/logistics-tr
 | Output | What it measures |
 | --- | --- |
 | `events.csv` | One row per status entry with a case ID, sequence, UTC timestamp, request type and priority. |
-| `process-report.md` and `step-times.png` | Time to the next event by step, the p90 bottleneck ranking, and request-level rework. Incomplete traces contribute observed intervals. The end-to-end median uses completed cases. |
+| [Process report and chart](docs/process-report.md) | Time to the next event by step, the p90 bottleneck ranking, and request-level rework. Incomplete traces contribute observed intervals. The end-to-end median uses completed cases. |
 | `directly-follows.csv` | Counts of adjacent activity pairs within a single request, including rework loops. The report embeds the same graph in Mermaid. |
 | [Use case catalog](docs/use-cases.md) | Seven hypotheses ranked by impact, effort and risk. Scores reflect workshop assumptions. |
 | [Triage benchmark](docs/triage-evaluation.md) | Exact category accuracy across the entire labeled set, the confusion matrix and every error, including confident errors that escaped review. |
@@ -60,6 +60,8 @@ The n8n smoke command imports and publishes [the workflow](workflow/logistics-tr
 - [30-minute colleague session](docs/colleague-session.md)
 
 ## Verification
+
+**76 tests passed** on Python 3.12 with **100.00% line coverage**. The deterministic mock scored **73.75% (59/80)**. It flagged 28 requests for review. Of its 21 incorrect categories, 8 were unflagged.
 
 Actions uploads the generated CSVs, benchmark results and chart as `logistics-demo`. The `n8n-run` artifact contains the webhook execution log. [GitHub Actions workflow](https://github.com/hamza2829/logistics-ai-automation-lab/actions/workflows/ci.yml)
 
